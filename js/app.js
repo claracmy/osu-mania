@@ -35,14 +35,17 @@ $(() => {
     const $gameboard = $('.gameboard');
     const $keyboard = $('.keyboard');
     $keyboard.show();
-    $gameboard.show()
+    $gameboard.show();
   }
 
   // Once start is pressed, count down 3 secs
 
 
-  // Display notes
+  // Display a note in a random column every 1 second
 
+  const $columns = $('.column');
+  const $randomColumn = $columns[(Math.floor(Math.random() * 4))];
+  
 
 
 

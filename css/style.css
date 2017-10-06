@@ -101,14 +101,42 @@ Keyboard
 
 .keyboard {
   background-color: black;
-  border: 3px solid white;
+  border: 2px solid white;
   width: 400px;
   height: 650px;
+  position: relative;
+}
+
+.column {
+  width: 99px;
+  border: 1px solid white;
+  display:inline-block;
+  float: left;
+  height: 647px;
+}
+
+/*
+Hitbox
+*/
+
+.hitbox {
+  background-color: grey;
+  border: 1px solid white;
+  height: 20px;
+  width: 100%;
+  position:absolute;
+  bottom: 60px;
 }
 
 /*
 Notes
 */
+
+.notes {
+  background-color: pink;
+  height: 20px;
+  width: 100%;
+}
 
 /*
 Scoreboard

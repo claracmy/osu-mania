@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>Welcome to Osu!</title>
+  <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/animate.css">
   <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
@@ -25,19 +26,20 @@
         <div class="button" id="one-player">Single player</div>
         <div class="button" id="two-players">Two players</div>
       </section>
-      <section class="gameboard" hidden>
+      <div class="gameboard" hidden>
         <div class="scoreboard">Score:<span class="score"></span></div>
-        <div class="keyboard">
-          <div class="column" id="d"></div>
+        <div class="keyboard" hidden>
+          <div class="column" id="d"><div class="notes"></div></div>
           <div class="column" id="f"></div>
           <div class="column" id="j"></div>
           <div class="column" id="k"></div>
           <div class="leeway">
             <div class="hitbox">
+
             </div>
           </div>
         </div>
-      </section>
+      </div>
     </div>
   </main>
   <footer>
