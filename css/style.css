@@ -10,7 +10,7 @@ Layout
   margin: 0 auto;
   background-color: grey;
 }
-.welcome{
+.welcome {
   width:1200px;
   height: 700px;
   margin: 0 auto;
@@ -18,6 +18,15 @@ Layout
   padding: 160px 20px;
   position: relative;
 }
+
+.gameboard {
+  width:1200px;
+  height: 700px;
+  margin: 0 auto;
+  background-color: #ed61a9;
+  padding: 10px 40px;
+}
+
 footer {
   background-color: grey;
 }
@@ -89,6 +98,13 @@ Buttons
 /*
 Keyboard
 */
+
+.keyboard {
+  background-color: black;
+  border: 3px solid white;
+  width: 400px;
+  height: 650px;
+}
 
 /*
 Notes
