@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Welcome to Osu!</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animate.css">
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="js/app.js" charset="utf-8"></script>
+</head>
+<body>
+  <header>
+
+  </header>
+  <main>
+    <div class="wrapper">
+      <section class="welcome">
+        <h1>Welcome to Osu!</h1>
+        <div class="instructions" hidden>
+          <p>Use d,f,j and ,k to input notes <br> as they hit the bottom bar.</p>
+        </div>
+        <div class="button" id="instructions">Instructions</div>
+        <div class="button" id="one-player">Single player</div>
+        <div class="button" id="two-players">Two players</div>
+      </section>
+      <section class="player 1">
+        <div class="scoreboard">Score:<span class="score"></span></div>
+        <div class="keyboard">
+          <div class="column" id="d"></div>
+          <div class="column" id="f"></div>
+          <div class="column" id="j"></div>
+          <div class="column" id="k"></div>
+          <div class="leeway">
+            <div class="hitbox">
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="player 2">
+      </section>
+    </div>
+  </main>
+  <footer>
+    <p>Made by Clara Cheung 2017</p>
+  </footer>
+</body>
+</html>

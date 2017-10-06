@@ -1,0 +1,103 @@
+/*
+Layout
+*/
+*{
+  box-sizing: border-box;
+}
+
+.wrapper{
+  width: 1200px;
+  margin: 0 auto;
+  background-color: grey;
+}
+.welcome{
+  width:1200px;
+  height: 700px;
+  margin: 0 auto;
+  background-color: #ed61a9;
+  padding: 160px 20px;
+  position: relative;
+}
+footer {
+  background-color: grey;
+}
+/*
+Typography
+*/
+h1, .button, .scoreboard, p, footer {
+  font-family: 'Ubuntu', sans-serif;
+  color: white;
+}
+
+h1 {
+  font-size: 60px;
+  text-align: center;
+}
+
+.button {
+  font-size: 20px;
+  text-align: center;
+}
+
+.scoreboard {
+  font-size: 20px;
+}
+
+p {
+  font-size: 20px;
+  line-height: 25px;
+  text-align: justify;
+}
+
+footer{
+  text-align: center;
+}
+
+/*
+Instructions
+*/
+.instructions {
+  background-color: rgba(0,0,0,0.2);
+  border-radius: 10px;
+  padding: 10px;
+  position: absolute;
+  margin-left: 800px;
+}
+
+
+/*
+Buttons
+*/
+
+.button {
+  background-color: pink;
+  border-radius: 10px;
+  margin: 10px 400px;
+  padding: 20px;
+}
+
+.button:hover {
+  background-color: rgba(255, 192, 203, 0.5);
+  cursor: pointer;
+}
+
+.button:active {
+  background-color: pink;
+  cursor: pointer;
+}
+
+/*
+Keyboard
+*/
+
+/*
+Notes
+*/
+
+/*
+Scoreboard
+*/
+
+/*
+Footer
+*/
