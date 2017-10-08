@@ -12,16 +12,16 @@ Layout
 }
 .welcome {
   width:1200px;
-  height: 700px;
+  height: 750px;
   margin: 0 auto;
   background-color: #ed61a9;
-  padding: 160px 20px;
+  padding: 230px 20px;
   position: relative;
 }
 
 .gameboard {
   width:1200px;
-  height: 700px;
+  height: 750px;
   margin: 0 auto;
   background-color: #ed61a9;
   padding: 10px 40px;
@@ -50,6 +50,13 @@ h1 {
 
 .scoreboard {
   font-size: 20px;
+}
+
+.column {
+  font-family: 'Ubuntu', sans-serif;
+  color: white;
+  font-size: 20px;
+  text-align: center;
 }
 
 p {
@@ -103,7 +110,7 @@ Keyboard
   background-color: black;
   border: 2px solid white;
   width: 400px;
-  height: 650px;
+  height: 700px;
   position: relative;
 }
 
@@ -112,7 +119,7 @@ Keyboard
   border: 1px solid white;
   display:inline-block;
   float: left;
-  height: 647px;
+  height: 697px;
 }
 
 /*
@@ -136,7 +143,14 @@ Notes
   background-color: pink;
   height: 20px;
   width: 100%;
+  position: relative;
+  z-index: 2;
 }
+
+/*.notes-moved{
+  transform: translateY(400px);
+  transition-duration: 10s;
+}*/
 
 /*
 Scoreboard
