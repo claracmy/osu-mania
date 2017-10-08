@@ -141,9 +141,10 @@ Notes
 
 .notes {
   background-color: pink;
-  height: 20px;
-  width: 100%;
-  position: relative;
+  height: 0;
+  padding: 10px 0;
+  width: 25%;
+  position: absolute;
   z-index: 2;
 }
 

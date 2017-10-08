@@ -25,6 +25,7 @@ $(() => {
     showKeyboard();
     hideWelcome();
     gameStart();
+    checkNote();
   });
 
   function hideWelcome(){
@@ -49,17 +50,20 @@ $(() => {
       translateNote();
     }, 1000);
   }
-  checkNote();
 
   // When player hits DFJK, compare position of notes and hitbox
   // const $hitbox = $('.hitbox');
   function checkNote(){
-    //Keeps track of keydown to ensure register of actual key presses not holds.
-    const down = {};
+    //Keeps track of keydown to ensure register of actual key presses not holds. Sets default to null.
+    const down = {
+      68: null,
+      70: null,
+      74: null,
+      75: null
+    };
+
 
     $(document).keydown(function(e){
-
-      down[e.which] = null; //Set default keypress to false
 
       //Find note closest to hitbox and determine position.
       const $d = $('#d');
@@ -82,7 +86,6 @@ $(() => {
       switch(e.which){
         case 68:
           if (down['68'] === null){
-            console.log(down);
             // console.log(dlastnotePosition);
             // if (dlastnotePosition > 400 && dlastnotePosition < 697){
             $dlastnote.style.backgroundColor = 'blue';
@@ -115,6 +118,7 @@ $(() => {
     // When player releases key, reset down log.
     $(document).keyup(function(e){
       down[e.which] = null;
+      return down;
     });
   }
 
@@ -136,7 +140,7 @@ $(() => {
   function translateNote(){
     const $notes = $('.notes');
     $notes.animate({
-      bottom: '-660px'
+      bottom: '-1px'
     }, 5000, 'linear', function(){
       $notes.remove();
     });
