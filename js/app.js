@@ -6,6 +6,25 @@ $(() => {
   const $welcome = $('.welcome');
   const $gameboard = $('.gameboard');
   const $keyboard = $('.keyboard');
+  const $score = $('.score');
+
+  let $d;
+  let $dLastNote;
+  let $f;
+  let $fLastNote;
+  let $j;
+  let $jLastNote;
+  let $k;
+  let $kLastNote;
+  let scores = 0;
+  $score.html(`${scores}`);
+
+  const down = {
+    68: null,
+    70: null,
+    74: null,
+    75: null
+  };
 
 
   // Display instructions when instructions is clicked and held
@@ -25,7 +44,7 @@ $(() => {
     showKeyboard();
     hideWelcome();
     gameStart();
-    checkNote();
+    registerNote();
   });
 
   function hideWelcome(){
@@ -53,62 +72,71 @@ $(() => {
 
   // When player hits DFJK, compare position of notes and hitbox
   // const $hitbox = $('.hitbox');
-  function checkNote(){
+  function registerNote(){
     //Keeps track of keydown to ensure register of actual key presses not holds. Sets default to null.
-    const down = {
-      68: null,
-      70: null,
-      74: null,
-      75: null
-    };
-
 
     $(document).keydown(function(e){
-
       //Find note closest to hitbox and determine position.
-      const $d = $('#d');
-      const $dnotes = $d[0].childNodes;
-      const $dlastnote = $dnotes[1];
-      // const dlastnotePosition = Math.abs(parseInt($dlastnote.style.bottom, 10));
+      $d = $('#d');
+      $dLastNote = $d[0].childNodes[1];
 
-      const $f = $('#f');
-      const $fnotes = $f[0].childNodes;
-      const $flastnote = $fnotes[1];
+      $f = $('#f');
+      $fLastNote = $f[0].childNodes[1];
 
-      const $j = $('#j');
-      const $jnotes = $j[0].childNodes;
-      const $jlastnote = $jnotes[1];
+      $j = $('#j');
+      $jLastNote = $j[0].childNodes[1];
 
-      const $k = $('#k');
-      const $knotes = $k[0].childNodes;
-      const $klastnote = $knotes[1];
-      //If closest note is within leeway, register.
+      $k = $('#k');
+      $kLastNote = $k[0].childNodes[1];
+
+      //If closest note is within hitbox, do checkNote.
       switch(e.which){
         case 68:
           if (down['68'] === null){
-            // console.log(dlastnotePosition);
-            // if (dlastnotePosition > 400 && dlastnotePosition < 697){
-            $dlastnote.style.backgroundColor = 'blue';
-            down['68'] = true;
-            // }
+            const dPosition = Math.abs(parseInt($dLastNote.style.bottom, 10));
+            if (dPosition < 100 && dPosition > 50){
+              $dLastNote.style.backgroundColor = 'blue';
+              addScore();
+              down['68'] = true;
+            } else {
+              deductScore();
+            }
           }
           break;
         case 70:
           if (down['70'] === null){
-            $flastnote.style.backgroundColor = 'green';
-            down['70'] = true;
+            const fPosition = Math.abs(parseInt($fLastNote.style.bottom, 10));
+            if (fPosition < 100 && fPosition > 50 ){
+              $fLastNote.style.backgroundColor = 'green';
+              addScore();
+              down['70'] = true;
+            } else {
+              deductScore();
+            }
           }
           break;
         case 74:
           if (down['74'] === null){
-            $jlastnote.style.backgroundColor = 'yellow';
-            down['74'] = true;
+            const jPosition = Math.abs(parseInt($jLastNote.style.bottom, 10));
+            if (jPosition < 100 && jPosition > 50 ){
+              $jLastNote.style.backgroundColor = 'yellow';
+              addScore();
+              down['74'] = true;
+            } else {
+              deductScore();
+            }
           }
           break;
         case 75:
           if (down['75'] === null){
-            $klastnote.style.backgroundColor = 'purple';
-            down['75'] = true;
+            const kPosition = Math.abs(parseInt($kLastNote.style.bottom, 10));
+            if (kPosition < 100 && kPosition > 50 ){
+              $kLastNote.style.backgroundColor = 'purple';
+              addScore();
+              down['75'] = true;
+            } else {
+              deductScore();
+            }
           }
           break;
         default:
@@ -121,8 +149,6 @@ $(() => {
       return down;
     });
   }
-
-
 
   function createNote(){
     // Select a random column
@@ -146,4 +172,15 @@ $(() => {
     });
   }
 
+  function addScore(){
+    scores += 300;
+    $score.html(`${scores}`);
+    return $score;
+  }
+
+  function deductScore(){
+    scores -= 300;
+    $score.html(`${scores}`);
+    return $score;
+  }
 });
