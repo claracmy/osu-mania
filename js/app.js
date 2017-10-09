@@ -8,6 +8,7 @@ $(() => {
   const $keyboard = $('.keyboard');
   const $score = $('.score');
   const $feedback = $('.feedback');
+  const $combo = $('.combo');
 
   let $d;
   let $dLastNote;
@@ -18,6 +19,7 @@ $(() => {
   let $k;
   let $kLastNote;
   let scores = 0;
+  let comboCounter = 0;
   $score.html(`${scores}`);
 
   //Keeps track of keydown to ensure register of actual key presses not holds. Sets default to null.
@@ -96,6 +98,7 @@ $(() => {
             if (dPosition < 120 && dPosition > 60){
               $dLastNote.className = 'animated fadeOut';
               addScore();
+              comboCounter += 1;
               down['68'] = true;
               hitAnimation();
               feedback();
@@ -104,6 +107,7 @@ $(() => {
               }, 300);
             } else {
               deductScore();
+              comboCounter = 0;
             }
           }
           break;
@@ -113,6 +117,7 @@ $(() => {
             if (fPosition < 120 && fPosition > 60 ){
               $fLastNote.className = 'animated fadeOut';
               addScore();
+              comboCounter += 1;
               down['70'] = true;
               hitAnimation();
               feedback();
@@ -121,6 +126,7 @@ $(() => {
               }, 300);
             } else {
               deductScore();
+              comboCounter = 0;
             }
           }
           break;
@@ -130,6 +136,7 @@ $(() => {
             if (jPosition < 120 && jPosition > 60 ){
               $jLastNote.className = 'animated fadeOut';
               addScore();
+              comboCounter += 1;
               down['74'] = true;
               hitAnimation();
               feedback();
@@ -138,6 +145,7 @@ $(() => {
               }, 300);
             } else {
               deductScore();
+              comboCounter = 0;
             }
           }
           break;
@@ -147,6 +155,7 @@ $(() => {
             if (kPosition < 120 && kPosition > 60 ){
               $kLastNote.className = 'animated fadeOut';
               addScore();
+              comboCounter += 1;
               down['75'] = true;
               hitAnimation();
               feedback();
@@ -155,12 +164,14 @@ $(() => {
               }, 300);
             } else {
               deductScore();
+              comboCounter = 0;
             }
           }
           break;
         default:
           break;
       }
+      combo();
     });
     // When player releases key, reset down log.
     $(document).keyup(function(e){
@@ -178,7 +189,6 @@ $(() => {
     return $randomColumn;
   }
 
-  // Move notes to bottom
   function translateNote(){
     const $notes = $('.notes');
     $notes.animate({
@@ -195,9 +205,27 @@ $(() => {
   }
 
   function deductScore(){
-    scores -= 300;
+    scores -= 200;
     $score.html(`${scores}`);
     return $score;
+  }
+
+  function feedback(){
+    $('.feedback-text').html('300');
+    $feedback.show();
+    setTimeout(function(){
+      $feedback.hide();
+    }, 400);
+  }
+
+  function combo(){
+    console.log(comboCounter);
+    if (comboCounter > 10){
+      $('.combo-text').html(`${comboCounter}`);
+      $combo.show();
+    } else {
+      $combo.hide();
+    }
   }
 
   function keypressAnimation(){
@@ -256,8 +284,4 @@ $(() => {
     }
   }
 
-  function feedback(){
-    $('.feedback-text').html('300');
-    $feedback.show();
-  }
 });
