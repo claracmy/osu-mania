@@ -41,6 +41,7 @@ h1, .button, .scoreboard, p, footer {
 h1 {
   font-size: 60px;
   text-align: center;
+  margin-bottom: 20px;
 }
 
 .button {
@@ -75,9 +76,9 @@ Instructions
 .instructions {
   background-color: rgba(0,0,0,0.2);
   border-radius: 10px;
-  padding: 10px;
+  padding: 20px;
   position: absolute;
-  margin-left: 800px;
+  margin-left: 10%;
 }
 
 
@@ -133,6 +134,15 @@ Hitbox
   width: 100%;
   position:absolute;
   bottom: 60px;
+}
+
+.leeway {
+  height: 200px;
+  bottom: 0;
+  margin-top: 496px;
+}
+.pressed {
+  background: linear-gradient(rgba(255,255,255,0.7) 21%, rgba(0,0,0,0.5) 71%, rgba(255,255,255,0.7) 93%);
 }
 
 /*

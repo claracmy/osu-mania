@@ -7,6 +7,7 @@ $(() => {
   const $gameboard = $('.gameboard');
   const $keyboard = $('.keyboard');
   const $score = $('.score');
+  const $leeway = $('.leeway');
 
   let $d;
   let $dLastNote;
@@ -19,6 +20,7 @@ $(() => {
   let scores = 0;
   $score.html(`${scores}`);
 
+  //Keeps track of keydown to ensure register of actual key presses not holds. Sets default to null.
   const down = {
     68: null,
     70: null,
@@ -44,6 +46,7 @@ $(() => {
     showKeyboard();
     hideWelcome();
     gameStart();
+    loadAnimation();
     registerNote();
   });
 
@@ -73,8 +76,6 @@ $(() => {
   // When player hits DFJK, compare position of notes and hitbox
   // const $hitbox = $('.hitbox');
   function registerNote(){
-    //Keeps track of keydown to ensure register of actual key presses not holds. Sets default to null.
-
     $(document).keydown(function(e){
       //Find note closest to hitbox and determine position.
       $d = $('#d');
@@ -94,7 +95,8 @@ $(() => {
         case 68:
           if (down['68'] === null){
             const dPosition = Math.abs(parseInt($dLastNote.style.bottom, 10));
-            if (dPosition < 100 && dPosition > 50){
+            console.log(dPosition);
+            if (dPosition < 90 && dPosition > 40){
               $dLastNote.style.backgroundColor = 'blue';
               addScore();
               down['68'] = true;
@@ -106,10 +108,13 @@ $(() => {
         case 70:
           if (down['70'] === null){
             const fPosition = Math.abs(parseInt($fLastNote.style.bottom, 10));
-            if (fPosition < 100 && fPosition > 50 ){
+            if (fPosition < 90 && fPosition > 40 ){
               $fLastNote.style.backgroundColor = 'green';
               addScore();
               down['70'] = true;
+              setTimeout(function(){
+                $fLastNote.remove();
+              }, 300);
             } else {
               deductScore();
             }
@@ -118,7 +123,7 @@ $(() => {
         case 74:
           if (down['74'] === null){
             const jPosition = Math.abs(parseInt($jLastNote.style.bottom, 10));
-            if (jPosition < 100 && jPosition > 50 ){
+            if (jPosition < 90 && jPosition > 40 ){
               $jLastNote.style.backgroundColor = 'yellow';
               addScore();
               down['74'] = true;
@@ -130,7 +135,7 @@ $(() => {
         case 75:
           if (down['75'] === null){
             const kPosition = Math.abs(parseInt($kLastNote.style.bottom, 10));
-            if (kPosition < 100 && kPosition > 50 ){
+            if (kPosition < 90 && kPosition > 40 ){
               $kLastNote.style.backgroundColor = 'purple';
               addScore();
               down['75'] = true;
@@ -183,4 +188,14 @@ $(() => {
     $score.html(`${scores}`);
     return $score;
   }
+
+  function loadAnimation(){
+    $(document).keydown(function(e){
+      if (e.which === 68 || e.which === 75){
+        $leeway.toggleClass('pressed');
+      }
+    });
+  }
+
+
 });
