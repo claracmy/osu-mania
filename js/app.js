@@ -46,7 +46,7 @@ $(() => {
     showKeyboard();
     hideWelcome();
     gameStart();
-    loadAnimation();
+    keypressAnimation();
     registerNote();
   });
 
@@ -95,13 +95,12 @@ $(() => {
         case 68:
           if (down['68'] === null){
             const dPosition = Math.abs(parseInt($dLastNote.style.bottom, 10));
-            console.log(dPosition);
-            if (dPosition < 100 && dPosition > 50){
+            if (dPosition < 120 && dPosition > 60){
               $dLastNote.style.backgroundColor = 'blue';
               addScore();
               down['68'] = true;
               setTimeout(function(){
-                $fLastNote.remove();
+                $dLastNote.remove();
               }, 300);
             } else {
               deductScore();
@@ -111,7 +110,7 @@ $(() => {
         case 70:
           if (down['70'] === null){
             const fPosition = Math.abs(parseInt($fLastNote.style.bottom, 10));
-            if (fPosition < 100 && fPosition > 50 ){
+            if (fPosition < 120 && fPosition > 60 ){
               $fLastNote.style.backgroundColor = 'green';
               addScore();
               down['70'] = true;
@@ -126,12 +125,12 @@ $(() => {
         case 74:
           if (down['74'] === null){
             const jPosition = Math.abs(parseInt($jLastNote.style.bottom, 10));
-            if (jPosition < 100 && jPosition > 50 ){
+            if (jPosition < 120 && jPosition > 60 ){
               $jLastNote.style.backgroundColor = 'yellow';
               addScore();
               down['74'] = true;
               setTimeout(function(){
-                $fLastNote.remove();
+                $jLastNote.remove();
               }, 300);
             } else {
               deductScore();
@@ -141,12 +140,12 @@ $(() => {
         case 75:
           if (down['75'] === null){
             const kPosition = Math.abs(parseInt($kLastNote.style.bottom, 10));
-            if (kPosition < 100 && kPosition > 50 ){
+            if (kPosition < 120 && kPosition > 60 ){
               $kLastNote.style.backgroundColor = 'purple';
               addScore();
               down['75'] = true;
               setTimeout(function(){
-                $fLastNote.remove();
+                $kLastNote.remove();
               }, 300);
             } else {
               deductScore();
@@ -198,20 +197,47 @@ $(() => {
     return $score;
   }
 
-  function loadAnimation(){
+  function keypressAnimation(){
     $(document).keydown(function(e){
       switch(e.which){
         case 68:
           $('.leeway-1').toggleClass('pressed');
+          $('.hitbox-1').toggleClass('hit');
           break;
         case 70:
           $('.leeway-2').toggleClass('pressed-pink');
+          $('.hitbox-2').toggleClass('hit');
           break;
         case 74:
           $('.leeway-3').toggleClass('pressed-pink');
+          $('.hitbox-3').toggleClass('hit');
           break;
         case 75:
           $('.leeway-4').toggleClass('pressed');
+          $('.hitbox-4').toggleClass('hit');
+          break;
+        default:
+          break;
+      }
+    });
+
+    $(document).keyup(function(e){
+      switch(e.which){
+        case 68:
+          $('.leeway-1').removeClass('pressed');
+          $('.hitbox-1').removeClass('hit');
+          break;
+        case 70:
+          $('.leeway-2').removeClass('pressed-pink');
+          $('.hitbox-2').removeClass('hit');
+          break;
+        case 74:
+          $('.leeway-3').removeClass('pressed-pink');
+          $('.hitbox-3').removeClass('hit');
+          break;
+        case 75:
+          $('.leeway-4').removeClass('pressed');
+          $('.hitbox-4').removeClass('hit');
           break;
         default:
           break;

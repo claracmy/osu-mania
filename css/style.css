@@ -56,9 +56,11 @@ h1 {
 .index {
   font-family: 'Ubuntu', sans-serif;
   color: black;
-  font-size: 20px;
+  font-size: 30px;
   text-align: center;
   line-height: 80px;
+  box-shadow: inset 0px 1px 0px rgba(0,0,0,.3);
+
 }
 
 p {
@@ -136,6 +138,14 @@ Hitbox
   width: 100%;
   position:relative;
 }
+
+.hitbox-col {
+  float: left;
+  width: 98px;
+  height: 20px;
+  box-shadow: inset 0 0 10px #636363;
+}
+
 /*
 Index bar
 */
@@ -149,11 +159,10 @@ Index bar
 }
 
 .index-col {
-  border-right: 1px solid white;
-  border-left: 1px solid white;
   float: left;
   width: 99px;
   height: 80px;
+  box-shadow: inset 0 0 10px #636363;
 }
 
 .index-2, .index-3 {
