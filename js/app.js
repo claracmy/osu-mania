@@ -207,16 +207,16 @@ $(() => {
     $(document).keydown(function(e){
       switch(e.which){
         case 68:
-          $('.leeway-1').addClass('pressed');
+          $('#d').addClass('pressed');
           break;
         case 70:
-          $('.leeway-2').addClass('pressed-pink');
+          $('#f').addClass('pressed-pink');
           break;
         case 74:
-          $('.leeway-3').addClass('pressed-pink');
+          $('#j').addClass('pressed-pink');
           break;
         case 75:
-          $('.leeway-4').addClass('pressed');
+          $('#k').addClass('pressed');
           break;
         default:
           break;
@@ -226,19 +226,19 @@ $(() => {
     $(document).keyup(function(e){
       switch(e.which){
         case 68:
-          $('.leeway-1').removeClass('pressed');
+          $('#d').removeClass('pressed');
           $('.hitbox-1').removeClass('hit');
           break;
         case 70:
-          $('.leeway-2').removeClass('pressed-pink');
+          $('#f').removeClass('pressed-pink');
           $('.hitbox-2').removeClass('hit');
           break;
         case 74:
-          $('.leeway-3').removeClass('pressed-pink');
+          $('#j').removeClass('pressed-pink');
           $('.hitbox-3').removeClass('hit');
           break;
         case 75:
-          $('.leeway-4').removeClass('pressed');
+          $('#k').removeClass('pressed');
           $('.hitbox-4').removeClass('hit');
           break;
         default:

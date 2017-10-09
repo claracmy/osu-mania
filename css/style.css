@@ -126,6 +126,14 @@ Keyboard
   height: 597px;
 }
 
+.pressed {
+  background: linear-gradient(rgba(255,255,255,0.2) 60%, rgba(255,255,255,0.6) 95%, rgba(255,255,255,0.2) 135%);
+}
+
+.pressed-pink {
+  background: linear-gradient(rgba(255,255,255,0.2) 60%, rgba(255, 192, 225,0.6) 95%, rgba(255,255,255,0.2) 135%);
+}
+
 /*
 Hitbox
 */
@@ -172,34 +180,6 @@ Index bar
 
 .index-2, .index-3 {
   background-color: rgba(255, 192, 225,1);
-}
-
-/*
-Leeway touch animation
-*/
-
-.leeway {
-  clear:both;
-  position: absolute;
-  height: 100px;
-  bottom: 100px;
-  margin-top: 496px;
-}
-
-.leeway-1, .leeway-2, .leeway-3, .leeway-4 {
-  width: 99px;
-  float: left;
-  height: 100px;
-  position: relative;
-}
-
-
-.pressed {
-  background: linear-gradient(rgba(255,255,255,0.2) 17%, rgba(255,255,255,1) 95%, rgba(255,255,255,0.2) 135%);
-}
-
-.pressed-pink {
-  background: linear-gradient(rgba(255,255,255,0.2) 17%, rgba(255, 192, 225,1) 95%, rgba(255,255,255,0.2) 135%);
 }
 
 /*
