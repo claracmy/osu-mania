@@ -53,11 +53,12 @@ h1 {
   font-size: 20px;
 }
 
-.column {
+.index {
   font-family: 'Ubuntu', sans-serif;
-  color: white;
+  color: black;
   font-size: 20px;
   text-align: center;
+  line-height: 80px;
 }
 
 p {
@@ -120,7 +121,7 @@ Keyboard
   border: 1px solid white;
   display:inline-block;
   float: left;
-  height: 697px;
+  height: 597px;
 }
 
 /*
@@ -128,21 +129,63 @@ Hitbox
 */
 
 .hitbox {
+  clear:both;
   background-color: grey;
   border: 1px solid white;
   height: 20px;
   width: 100%;
-  position:absolute;
-  bottom: 60px;
+  position:relative;
+}
+/*
+Index bar
+*/
+
+.index {
+  clear:both;
+  height: 80px;
+  position: relative;
+  background-color: white;
+  z-index: 3;
 }
 
+.index-col {
+  border-right: 1px solid white;
+  border-left: 1px solid white;
+  float: left;
+  width: 99px;
+  height: 80px;
+}
+
+.index-2, .index-3 {
+  background-color: rgba(255, 192, 225,1);
+}
+
+/*
+Leeway touch animation
+*/
+
 .leeway {
-  height: 200px;
-  bottom: 0;
+  clear:both;
+  position: absolute;
+  height: 100px;
+  bottom: 100px;
   margin-top: 496px;
 }
+
+.leeway-1, .leeway-2, .leeway-3, .leeway-4 {
+  width: 99px;
+  float: left;
+  height: 100px;
+  position: relative;
+}
+
+
 .pressed {
-  background: linear-gradient(rgba(255,255,255,0.7) 21%, rgba(0,0,0,0.5) 71%, rgba(255,255,255,0.7) 93%);
+  background: linear-gradient(rgba(255,255,255,0.2) 17%, rgba(255,255,255,1) 95%, rgba(255,255,255,0.2) 135%);
+}
+
+.pressed-pink {
+  background: linear-gradient(rgba(255,255,255,0.2) 17%, rgba(255, 192, 225,1) 95%, rgba(255,255,255,0.2) 135%);
 }
 
 /*
