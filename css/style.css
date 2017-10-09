@@ -27,6 +27,10 @@ Layout
   padding: 10px 40px;
 }
 
+.scoreboard{
+  float:right;
+}
+
 footer {
   background-color: grey;
 }
@@ -50,7 +54,7 @@ h1 {
 }
 
 .scoreboard {
-  font-size: 20px;
+  font-size: 35px;
 }
 
 .index {
@@ -90,8 +94,9 @@ Buttons
 */
 
 .button {
-  background-color: pink;
+  background: linear-gradient(to left, rgba(255, 192, 203, 0.5), rgba(255, 255, 255, 0.5), rgba(255, 192, 203, 0.5));
   border-radius: 10px;
+  box-shadow: inset 0 0 10px #fff;
   margin: 10px 38%;
   padding: 20px;
 }
@@ -116,11 +121,15 @@ Keyboard
   width: 400px;
   height: 700px;
   position: relative;
+  clear:both;
+  overflow:hidden; /*hides excess hit animation box shadow */
 }
 
 .column {
   width: 99px;
-  border: 1px solid white;
+  border-top: 1px solid white;
+  border-left: 1px solid white;
+  border-right: 1px solid white;
   display:inline-block;
   float: left;
   height: 597px;
@@ -140,8 +149,7 @@ Hitbox
 
 .hitbox {
   clear:both;
-  background-color: grey;
-  border: 1px solid white;
+  background: linear-gradient(to right, grey, white);
   height: 20px;
   width: 100%;
   position:relative;
@@ -149,14 +157,19 @@ Hitbox
 
 .hitbox-col {
   float: left;
-  width: 98px;
+  width: 99px;
   height: 20px;
   box-shadow: inset 0 0 10px #636363;
+  border-radius: 1px;
 }
 
 .hit{
- transform: scale(1.1, 1.1);
- background-color: white;
+  border-radius: 50%;
+  background-color: #fff;
+  box-shadow:
+         0 0 60px 30px #fff,  /* inner */
+         0 0 90px 50px #f0f, /* middle */
+         0 0 120px 70px #0ff; /* outer */
 }
 
 /*
@@ -167,7 +180,7 @@ Index bar
   clear:both;
   height: 80px;
   position: relative;
-  background-color: white;
+  background: linear-gradient(to left, rgba(254, 253, 251,1), rgba(255,255,255,1), rgba(254, 253, 251,1));
   z-index: 3;
 }
 
@@ -176,10 +189,11 @@ Index bar
   width: 99px;
   height: 80px;
   box-shadow: inset 0 0 10px #636363;
+  border-radius: 1px;
 }
 
 .index-2, .index-3 {
-  background-color: rgba(255, 192, 225,1);
+  background: linear-gradient(to left, rgba(255, 192, 225,1), rgba(255,255,255,1), rgba(255, 192, 225,1));
 }
 
 /*
@@ -187,22 +201,34 @@ Notes
 */
 
 .notes {
-  background-color: pink;
   height: 0;
   padding: 10px 0;
   width: 25%;
   position: absolute;
   z-index: 2;
+  box-shadow: inset 0 0 10px #fff;
+  background: linear-gradient(to left, pink, white, pink );
+  border-radius: 2px;
 }
 
-/*.notes-moved{
-  transform: translateY(400px);
-  transition-duration: 10s;
-}*/
-
 /*
-Scoreboard
+Feedback
 */
+
+.feedback {
+  z-index: 4;
+  font-family: 'Ubuntu', sans-serif;
+  position: absolute;
+  left: 161px;
+  top: 424px;
+  font-size: 92px;
+}
+
+.feedback-text {
+  background: -webkit-linear-gradient(orange, orange, yellow, green, cyan, blue, violet, violet);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
 /*
 Footer

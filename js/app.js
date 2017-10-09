@@ -7,6 +7,7 @@ $(() => {
   const $gameboard = $('.gameboard');
   const $keyboard = $('.keyboard');
   const $score = $('.score');
+  const $feedback = $('.feedback');
 
   let $d;
   let $dLastNote;
@@ -72,11 +73,10 @@ $(() => {
     }, 1000);
   }
 
-  // When player hits DFJK, compare position of notes and hitbox
-  // const $hitbox = $('.hitbox');
+  // When player hits DFJK, compare position of notes and hitbox. Find the note closest to hitbox and determine position. If within hit area, do addScore, hitAnimation and remove note. If player misses, deduct score.
   function registerNote(){
     $(document).keydown(function(e){
-      //Find note closest to hitbox and determine position.
+
       $d = $('#d');
       $dLastNote = $d[0].firstChild;
 
@@ -89,16 +89,16 @@ $(() => {
       $k = $('#k');
       $kLastNote = $k[0].firstChild;
 
-      //If closest note is within hitbox, do checkNote.
       switch(e.which){
         case 68:
           if (down['68'] === null){
             const dPosition = Math.abs(parseInt($dLastNote.style.bottom, 10));
             if (dPosition < 120 && dPosition > 60){
-              $dLastNote.style.backgroundColor = 'blue';
+              $dLastNote.className = 'animated fadeOut';
               addScore();
               down['68'] = true;
               hitAnimation();
+              feedback();
               setTimeout(function(){
                 $dLastNote.remove();
               }, 300);
@@ -111,11 +111,11 @@ $(() => {
           if (down['70'] === null){
             const fPosition = Math.abs(parseInt($fLastNote.style.bottom, 10));
             if (fPosition < 120 && fPosition > 60 ){
-              $fLastNote.style.backgroundColor = 'green';
-              // $('.hitbox-2').addClass('hit');
+              $fLastNote.className = 'animated fadeOut';
               addScore();
               down['70'] = true;
               hitAnimation();
+              feedback();
               setTimeout(function(){
                 $fLastNote.remove();
               }, 300);
@@ -128,11 +128,11 @@ $(() => {
           if (down['74'] === null){
             const jPosition = Math.abs(parseInt($jLastNote.style.bottom, 10));
             if (jPosition < 120 && jPosition > 60 ){
-              $jLastNote.style.backgroundColor = 'yellow';
-              // $('.hitbox-3').addClass('hit');
+              $jLastNote.className = 'animated fadeOut';
               addScore();
               down['74'] = true;
               hitAnimation();
+              feedback();
               setTimeout(function(){
                 $jLastNote.remove();
               }, 300);
@@ -145,11 +145,11 @@ $(() => {
           if (down['75'] === null){
             const kPosition = Math.abs(parseInt($kLastNote.style.bottom, 10));
             if (kPosition < 120 && kPosition > 60 ){
-              $kLastNote.style.backgroundColor = 'purple';
-              // $('.hitbox-4').addClass('hit');
+              $kLastNote.className = 'animated fadeOut';
               addScore();
               down['75'] = true;
               hitAnimation();
+              feedback();
               setTimeout(function(){
                 $kLastNote.remove();
               }, 300);
@@ -170,24 +170,21 @@ $(() => {
   }
 
   function createNote(){
-    // Select a random column
     const $columns = $('.column');
-    const $randomColumn = $columns[(Math.floor(Math.random() * 4))];
-    //create a new note to add to the random column
-    const $newNote = document.createElement('div');
+    const $randomColumn = $columns[(Math.floor(Math.random() * 4))];   // Select a random column
+    const $newNote = document.createElement('div');     //create a new note to add to the random column
     $newNote.className = 'notes';
     $randomColumn.append($newNote);
     return $randomColumn;
   }
 
   // Move notes to bottom
-
   function translateNote(){
     const $notes = $('.notes');
     $notes.animate({
       bottom: '-1px'
     }, 5000, 'linear', function(){
-      $notes.remove();
+      $notes.remove();  //Destroy note when animation finishes
     });
   }
 
@@ -249,7 +246,6 @@ $(() => {
 
   function hitAnimation(){
     if (down['68'] === true){
-      console.log('hitAnimation');
       $('.hitbox-1').addClass('hit');
     } else if (down['70'] === true){
       $('.hitbox-2').addClass('hit');
@@ -260,5 +256,8 @@ $(() => {
     }
   }
 
-
+  function feedback(){
+    $('.feedback-text').html('300');
+    $feedback.show();
+  }
 });
