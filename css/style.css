@@ -146,6 +146,11 @@ Hitbox
   box-shadow: inset 0 0 10px #636363;
 }
 
+.hit{
+ transform: scale(1.1, 1.1);
+ background-color: white;
+}
+
 /*
 Index bar
 */

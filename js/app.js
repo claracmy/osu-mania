@@ -7,7 +7,6 @@ $(() => {
   const $gameboard = $('.gameboard');
   const $keyboard = $('.keyboard');
   const $score = $('.score');
-  const $leeway = $('.leeway');
 
   let $d;
   let $dLastNote;
@@ -99,6 +98,7 @@ $(() => {
               $dLastNote.style.backgroundColor = 'blue';
               addScore();
               down['68'] = true;
+              hitAnimation();
               setTimeout(function(){
                 $dLastNote.remove();
               }, 300);
@@ -112,8 +112,10 @@ $(() => {
             const fPosition = Math.abs(parseInt($fLastNote.style.bottom, 10));
             if (fPosition < 120 && fPosition > 60 ){
               $fLastNote.style.backgroundColor = 'green';
+              // $('.hitbox-2').addClass('hit');
               addScore();
               down['70'] = true;
+              hitAnimation();
               setTimeout(function(){
                 $fLastNote.remove();
               }, 300);
@@ -127,8 +129,10 @@ $(() => {
             const jPosition = Math.abs(parseInt($jLastNote.style.bottom, 10));
             if (jPosition < 120 && jPosition > 60 ){
               $jLastNote.style.backgroundColor = 'yellow';
+              // $('.hitbox-3').addClass('hit');
               addScore();
               down['74'] = true;
+              hitAnimation();
               setTimeout(function(){
                 $jLastNote.remove();
               }, 300);
@@ -142,8 +146,10 @@ $(() => {
             const kPosition = Math.abs(parseInt($kLastNote.style.bottom, 10));
             if (kPosition < 120 && kPosition > 60 ){
               $kLastNote.style.backgroundColor = 'purple';
+              // $('.hitbox-4').addClass('hit');
               addScore();
               down['75'] = true;
+              hitAnimation();
               setTimeout(function(){
                 $kLastNote.remove();
               }, 300);
@@ -201,20 +207,16 @@ $(() => {
     $(document).keydown(function(e){
       switch(e.which){
         case 68:
-          $('.leeway-1').toggleClass('pressed');
-          $('.hitbox-1').toggleClass('hit');
+          $('.leeway-1').addClass('pressed');
           break;
         case 70:
-          $('.leeway-2').toggleClass('pressed-pink');
-          $('.hitbox-2').toggleClass('hit');
+          $('.leeway-2').addClass('pressed-pink');
           break;
         case 74:
-          $('.leeway-3').toggleClass('pressed-pink');
-          $('.hitbox-3').toggleClass('hit');
+          $('.leeway-3').addClass('pressed-pink');
           break;
         case 75:
-          $('.leeway-4').toggleClass('pressed');
-          $('.hitbox-4').toggleClass('hit');
+          $('.leeway-4').addClass('pressed');
           break;
         default:
           break;
@@ -243,6 +245,19 @@ $(() => {
           break;
       }
     });
+  }
+
+  function hitAnimation(){
+    if (down['68'] === true){
+      console.log('hitAnimation');
+      $('.hitbox-1').addClass('hit');
+    } else if (down['70'] === true){
+      $('.hitbox-2').addClass('hit');
+    } else if (down['74'] === true){
+      $('.hitbox-3').addClass('hit');
+    } else if (down['75'] === true){
+      $('.hitbox-4').addClass('hit');
+    }
   }
 
 
