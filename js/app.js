@@ -24,13 +24,7 @@ $(() => {
   let kPosition;
   let scores = 0;
   let comboCounter = 0;
-
-  //Music Setup
-  const bgm = document.getElementById('bgm');
-  bgm.src = 'bgm.mp3';
-  const music = document.getElementById('music');
-  music.src = 'music.mp3';
-  // bgm.play();
+  let gameEnd = true;
 
   //Keeps track of keydown to ensure register of actual key presses not holds. Sets default to null.
   const down = {
@@ -39,7 +33,15 @@ $(() => {
     74: null,
     75: null
   };
-
+  // Music setup
+  const bgm = document.getElementById('bgm');
+  bgm.src = 'bgm.mp3';
+  const music = document.getElementById('music');
+  music.src = 'music.mp3';
+  const hit = document.getElementById('hit');
+  hit.src = 'hit.wav';
+  hit.volume = 0.3;
+  bgm.play();
 
   // Display instructions when instructions is clicked and held
 
@@ -57,6 +59,7 @@ $(() => {
   $oneplayer.on('click', function(){
     showKeyboard();
     $score.html(`${scores}`);
+    bgm.pause();
     hideWelcome();
     countdown();
   });
@@ -80,19 +83,37 @@ $(() => {
     }, 3000);
   }
 
-
   // Display a note in a random column every 1 second
 
   function gameStart(){
     setInterval(function(){
       createNote();
-      translateNote();
     }, 1000);
     keypressAnimation();
     registerNote();
+    gameEnd = false;
+    // missedNotes();
   }
 
+  function createNote(){
+    const $columns = $('.column');
+    const $randomColumn = $columns[(Math.floor(Math.random() * 4))];   // Select a random column
+    const $newNote = $('<div/>', {'class': 'notes'});
+    $newNote.appendTo($randomColumn);
+    translateNote($newNote);
+    return $randomColumn;
+  }
 
+  function translateNote(note){
+    console.log(note);
+    note.animate({
+      bottom: '-1px'
+    }, 4000, 'linear',function(){
+      note.remove();
+      deductScore();
+      comboCounter = 0;
+    });
+  }
 
   // When player hits DFJK, compare position of notes and hitbox. Find the note closest to hitbox and determine position. If within hit area, do addScore, hitAnimation and remove note. If player misses, deduct score.
   function registerNote(){
@@ -115,11 +136,12 @@ $(() => {
           if (down['68'] === null){
             dPosition = Math.abs(parseInt($dLastNote.style.bottom, 10));
             if (dPosition < 120 && dPosition > 60){
-              $dLastNote.className = ' ';
+              $dLastNote.remove();
               addScore();
               comboCounter += 1;
               down['68'] = true;
               hitAnimation();
+              hit.play();
               feedback();
             } else {
               deductScore();
@@ -131,11 +153,12 @@ $(() => {
           if (down['70'] === null){
             fPosition = Math.abs(parseInt($fLastNote.style.bottom, 10));
             if (fPosition < 120 && fPosition > 60 ){
-              $fLastNote.className = ' ';
+              $fLastNote.remove();
               addScore();
               comboCounter += 1;
               down['70'] = true;
               hitAnimation();
+              hit.play();
               feedback();
             } else {
               deductScore();
@@ -147,11 +170,12 @@ $(() => {
           if (down['74'] === null){
             jPosition = Math.abs(parseInt($jLastNote.style.bottom, 10));
             if (jPosition < 120 && jPosition > 60 ){
-              $jLastNote.className = ' ';
+              $jLastNote.remove();
               addScore();
               comboCounter += 1;
               down['74'] = true;
               hitAnimation();
+              hit.play();
               feedback();
             } else {
               deductScore();
@@ -163,11 +187,12 @@ $(() => {
           if (down['75'] === null){
             kPosition = Math.abs(parseInt($kLastNote.style.bottom, 10));
             if (kPosition < 120 && kPosition > 60 ){
-              $kLastNote.className = ' ';
+              $kLastNote.remove();
               addScore();
               comboCounter += 1;
               down['75'] = true;
               hitAnimation();
+              hit.play();
               feedback();
             } else {
               deductScore();
@@ -187,24 +212,6 @@ $(() => {
     });
   }
 
-  function createNote(){
-    const $columns = $('.column');
-    const $randomColumn = $columns[(Math.floor(Math.random() * 4))];   // Select a random column
-    const $newNote = document.createElement('div');     //create a new note to add to the random column
-    $newNote.className = 'notes';
-    $randomColumn.append($newNote);
-    return $randomColumn;
-  }
-
-  function translateNote(){
-    const $notes = $('.notes');
-    $notes.animate({
-      bottom: '-1px'
-    }, 5000, 'linear', function(){
-      $notes.remove();  //Destroy note when animation finishes
-    });
-  }
-
   function addScore(){
     scores += 300;
     $score.html(`${scores}`);
@@ -218,7 +225,7 @@ $(() => {
   }
 
   function feedback(){
-    $('.feedback-text').html('300');
+    $('.feedback-text').html('GREAT');
     $feedback.show();
     setTimeout(function(){
       $feedback.hide();
@@ -290,12 +297,4 @@ $(() => {
     }
   }
 
-  // When they don't get hit, deduct score and reset combo
-  // setInterval(function(){
-  //   const $notes = $('.notes');
-  //   if ((parseInt($notes[0].style.bottom)) < 0){
-  //     deductScore();
-  //     comboCounter = 0;
-  //   }
-  // }, 100);
 });

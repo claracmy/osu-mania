@@ -220,10 +220,11 @@ Feedback
 .feedback {
   z-index: 4;
   font-family: 'Ubuntu', sans-serif;
+  font-weight: 700;
   position: absolute;
-  left: 161px;
+  left: 120px;
   top: 424px;
-  font-size: 92px;
+  font-size: 80px;
 }
 
 .feedback-text {
