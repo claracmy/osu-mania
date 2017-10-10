@@ -86,13 +86,12 @@ $(() => {
   // Display a note in a random column every 1 second
 
   function gameStart(){
+    registerNote();
     setInterval(function(){
       createNote();
     }, 1000);
     keypressAnimation();
-    registerNote();
     gameEnd = false;
-    // missedNotes();
   }
 
   function createNote(){
@@ -105,13 +104,18 @@ $(() => {
   }
 
   function translateNote(note){
-    console.log(note);
     note.animate({
       bottom: '-1px'
-    }, 4000, 'linear',function(){
-      note.remove();
-      deductScore();
-      comboCounter = 0;
+    }, 4000, 'linear', function(){
+      const $unhit = $keyboard.find('.notes'); // When notes are hit, they are removed from DOM. Therefore this returns only unhit notes.
+      for (let i = 0; i < $unhit.length; i++){
+        if (parseInt($unhit[i].style.bottom) < 0) {  // If unhit notes are at -1px, they've been missed.
+          note.remove();
+          feedbackMissed();
+          deductScore();
+          comboCounter = 0;
+        }
+      }
     });
   }
 
@@ -134,7 +138,7 @@ $(() => {
       switch(e.which){
         case 68:
           if (down['68'] === null){
-            dPosition = Math.abs(parseInt($dLastNote.style.bottom, 10));
+            dPosition = parseInt($dLastNote.style.bottom, 10);
             if (dPosition < 120 && dPosition > 60){
               $dLastNote.remove();
               addScore();
@@ -142,8 +146,9 @@ $(() => {
               down['68'] = true;
               hitAnimation();
               hit.play();
-              feedback();
+              feedbackGreat();
             } else {
+              feedbackMissed();
               deductScore();
               comboCounter = 0;
             }
@@ -151,7 +156,7 @@ $(() => {
           break;
         case 70:
           if (down['70'] === null){
-            fPosition = Math.abs(parseInt($fLastNote.style.bottom, 10));
+            fPosition = parseInt($fLastNote.style.bottom, 10);
             if (fPosition < 120 && fPosition > 60 ){
               $fLastNote.remove();
               addScore();
@@ -159,8 +164,9 @@ $(() => {
               down['70'] = true;
               hitAnimation();
               hit.play();
-              feedback();
+              feedbackGreat();
             } else {
+              feedbackMissed();
               deductScore();
               comboCounter = 0;
             }
@@ -168,7 +174,7 @@ $(() => {
           break;
         case 74:
           if (down['74'] === null){
-            jPosition = Math.abs(parseInt($jLastNote.style.bottom, 10));
+            jPosition = parseInt($jLastNote.style.bottom, 10);
             if (jPosition < 120 && jPosition > 60 ){
               $jLastNote.remove();
               addScore();
@@ -176,8 +182,9 @@ $(() => {
               down['74'] = true;
               hitAnimation();
               hit.play();
-              feedback();
+              feedbackGreat();
             } else {
+              feedbackMissed();
               deductScore();
               comboCounter = 0;
             }
@@ -185,7 +192,7 @@ $(() => {
           break;
         case 75:
           if (down['75'] === null){
-            kPosition = Math.abs(parseInt($kLastNote.style.bottom, 10));
+            kPosition = parseInt($kLastNote.style.bottom, 10);
             if (kPosition < 120 && kPosition > 60 ){
               $kLastNote.remove();
               addScore();
@@ -193,8 +200,9 @@ $(() => {
               down['75'] = true;
               hitAnimation();
               hit.play();
-              feedback();
+              feedbackGreat();
             } else {
+              feedbackMissed();
               deductScore();
               comboCounter = 0;
             }
@@ -224,10 +232,20 @@ $(() => {
     return $score;
   }
 
-  function feedback(){
+  function feedbackGreat(){
     $('.feedback-text').html('GREAT');
     $feedback.show();
     setTimeout(function(){
+      $feedback.hide();
+    }, 400);
+  }
+
+  function feedbackMissed(){
+    $('.feedback-text').addClass('missed');
+    $('.feedback-text').html('MISSED');
+    $feedback.show();
+    setTimeout(function(){
+      $('.feedback-text').removeClass('missed');
       $feedback.hide();
     }, 400);
   }
