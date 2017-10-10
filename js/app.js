@@ -12,15 +12,25 @@ $(() => {
 
   let $d;
   let $dLastNote;
+  let dPosition;
   let $f;
   let $fLastNote;
+  let fPosition;
   let $j;
   let $jLastNote;
+  let jPosition;
   let $k;
   let $kLastNote;
+  let kPosition;
   let scores = 0;
   let comboCounter = 0;
-  $score.html(`${scores}`);
+
+  //Music Setup
+  const bgm = document.getElementById('bgm');
+  bgm.src = 'bgm.mp3';
+  const music = document.getElementById('music');
+  music.src = 'music.mp3';
+  // bgm.play();
 
   //Keeps track of keydown to ensure register of actual key presses not holds. Sets default to null.
   const down = {
@@ -46,10 +56,9 @@ $(() => {
   // Hide welcome screen and buttons once player has chosen game mode
   $oneplayer.on('click', function(){
     showKeyboard();
+    $score.html(`${scores}`);
     hideWelcome();
-    gameStart();
-    keypressAnimation();
-    registerNote();
+    countdown();
   });
 
   function hideWelcome(){
@@ -64,6 +73,12 @@ $(() => {
   }
 
   // Once start is pressed, count down 3 secs
+  function countdown(){
+    setTimeout(function(){
+      music.play();
+      gameStart();
+    }, 3000);
+  }
 
 
   // Display a note in a random column every 1 second
@@ -73,7 +88,11 @@ $(() => {
       createNote();
       translateNote();
     }, 1000);
+    keypressAnimation();
+    registerNote();
   }
+
+
 
   // When player hits DFJK, compare position of notes and hitbox. Find the note closest to hitbox and determine position. If within hit area, do addScore, hitAnimation and remove note. If player misses, deduct score.
   function registerNote(){
@@ -94,17 +113,14 @@ $(() => {
       switch(e.which){
         case 68:
           if (down['68'] === null){
-            const dPosition = Math.abs(parseInt($dLastNote.style.bottom, 10));
+            dPosition = Math.abs(parseInt($dLastNote.style.bottom, 10));
             if (dPosition < 120 && dPosition > 60){
-              $dLastNote.className = 'animated fadeOut';
+              $dLastNote.className = ' ';
               addScore();
               comboCounter += 1;
               down['68'] = true;
               hitAnimation();
               feedback();
-              setTimeout(function(){
-                $dLastNote.remove();
-              }, 300);
             } else {
               deductScore();
               comboCounter = 0;
@@ -113,17 +129,14 @@ $(() => {
           break;
         case 70:
           if (down['70'] === null){
-            const fPosition = Math.abs(parseInt($fLastNote.style.bottom, 10));
+            fPosition = Math.abs(parseInt($fLastNote.style.bottom, 10));
             if (fPosition < 120 && fPosition > 60 ){
-              $fLastNote.className = 'animated fadeOut';
+              $fLastNote.className = ' ';
               addScore();
               comboCounter += 1;
               down['70'] = true;
               hitAnimation();
               feedback();
-              setTimeout(function(){
-                $fLastNote.remove();
-              }, 300);
             } else {
               deductScore();
               comboCounter = 0;
@@ -132,17 +145,14 @@ $(() => {
           break;
         case 74:
           if (down['74'] === null){
-            const jPosition = Math.abs(parseInt($jLastNote.style.bottom, 10));
+            jPosition = Math.abs(parseInt($jLastNote.style.bottom, 10));
             if (jPosition < 120 && jPosition > 60 ){
-              $jLastNote.className = 'animated fadeOut';
+              $jLastNote.className = ' ';
               addScore();
               comboCounter += 1;
               down['74'] = true;
               hitAnimation();
               feedback();
-              setTimeout(function(){
-                $jLastNote.remove();
-              }, 300);
             } else {
               deductScore();
               comboCounter = 0;
@@ -151,17 +161,14 @@ $(() => {
           break;
         case 75:
           if (down['75'] === null){
-            const kPosition = Math.abs(parseInt($kLastNote.style.bottom, 10));
+            kPosition = Math.abs(parseInt($kLastNote.style.bottom, 10));
             if (kPosition < 120 && kPosition > 60 ){
-              $kLastNote.className = 'animated fadeOut';
+              $kLastNote.className = ' ';
               addScore();
               comboCounter += 1;
               down['75'] = true;
               hitAnimation();
               feedback();
-              setTimeout(function(){
-                $kLastNote.remove();
-              }, 300);
             } else {
               deductScore();
               comboCounter = 0;
@@ -219,7 +226,6 @@ $(() => {
   }
 
   function combo(){
-    console.log(comboCounter);
     if (comboCounter > 10){
       $('.combo-text').html(`${comboCounter}`);
       $combo.show();
@@ -284,4 +290,12 @@ $(() => {
     }
   }
 
+  // When they don't get hit, deduct score and reset combo
+  // setInterval(function(){
+  //   const $notes = $('.notes');
+  //   if ((parseInt($notes[0].style.bottom)) < 0){
+  //     deductScore();
+  //     comboCounter = 0;
+  //   }
+  // }, 100);
 });

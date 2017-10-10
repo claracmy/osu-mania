@@ -73,8 +73,10 @@ p {
   text-align: justify;
 }
 
-footer{
+footer p {
   text-align: center;
+  font-size: 18px;
+  padding: 2px;
 }
 
 /*
