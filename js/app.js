@@ -139,13 +139,22 @@ $(() => {
         case 68:
           if (down['68'] === null){
             dPosition = parseInt($dLastNote.style.bottom, 10);
-            if (dPosition < 120 && dPosition > 60){
+            console.log(dPosition);
+            if ((dPosition < 110 && dPosition > 95) || (dPosition < 70 && dPosition > 60)) {
               $dLastNote.remove();
-              addScore();
               comboCounter += 1;
               down['68'] = true;
               hitAnimation();
               hit.play();
+              addScore();
+              feedbackGood();
+            } else if (dPosition <= 95 && dPosition >= 70) {
+              $dLastNote.remove();
+              comboCounter += 1;
+              down['68'] = true;
+              hitAnimation();
+              hit.play();
+              addScore();
               feedbackGreat();
             } else {
               feedbackMissed();
@@ -157,13 +166,21 @@ $(() => {
         case 70:
           if (down['70'] === null){
             fPosition = parseInt($fLastNote.style.bottom, 10);
-            if (fPosition < 120 && fPosition > 60 ){
+            if  ((fPosition < 110 && fPosition > 95) || (fPosition < 70 && fPosition > 60)) {
               $fLastNote.remove();
-              addScore();
               comboCounter += 1;
               down['70'] = true;
               hitAnimation();
               hit.play();
+              addScore();
+              feedbackGood();
+            } else if (fPosition <= 95 && fPosition >= 70) {
+              $fLastNote.remove();
+              comboCounter += 1;
+              down['70'] = true;
+              hitAnimation();
+              hit.play();
+              addScore();
               feedbackGreat();
             } else {
               feedbackMissed();
@@ -175,13 +192,21 @@ $(() => {
         case 74:
           if (down['74'] === null){
             jPosition = parseInt($jLastNote.style.bottom, 10);
-            if (jPosition < 120 && jPosition > 60 ){
+            if  ((jPosition < 110 && jPosition > 95) || (jPosition < 70 && jPosition > 60)) {
               $jLastNote.remove();
-              addScore();
               comboCounter += 1;
               down['74'] = true;
               hitAnimation();
               hit.play();
+              addScore();
+              feedbackGood();
+            } else if (jPosition <= 95 && jPosition >= 70) {
+              $jLastNote.remove();
+              comboCounter += 1;
+              down['74'] = true;
+              hitAnimation();
+              hit.play();
+              addScore();
               feedbackGreat();
             } else {
               feedbackMissed();
@@ -193,13 +218,21 @@ $(() => {
         case 75:
           if (down['75'] === null){
             kPosition = parseInt($kLastNote.style.bottom, 10);
-            if (kPosition < 120 && kPosition > 60 ){
+            if ((kPosition < 110 && kPosition > 95) || (kPosition < 70 && kPosition > 60)){
               $kLastNote.remove();
-              addScore();
               comboCounter += 1;
               down['75'] = true;
               hitAnimation();
               hit.play();
+              addScore();
+              feedbackGood();
+            } else if (kPosition <= 95 && kPosition >= 70) {
+              $kLastNote.remove();
+              comboCounter += 1;
+              down['75'] = true;
+              hitAnimation();
+              hit.play();
+              addScore();
               feedbackGreat();
             } else {
               feedbackMissed();
@@ -234,8 +267,20 @@ $(() => {
 
   function feedbackGreat(){
     $('.feedback-text').html('GREAT');
+    $('.feedback-text').addClass('great');
     $feedback.show();
     setTimeout(function(){
+      $('.feedback-text').removeClass('great');
+      $feedback.hide();
+    }, 400);
+  }
+
+  function feedbackGood(){
+    $('.feedback-text').addClass('good');
+    $('.feedback-text').html('GOOD');
+    $feedback.show();
+    setTimeout(function(){
+      $('.feedback-text').removeClass('good');
       $feedback.hide();
     }, 400);
   }

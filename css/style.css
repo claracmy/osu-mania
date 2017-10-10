@@ -225,8 +225,14 @@ Feedback
   font-size: 80px;
 }
 
-.feedback-text {
+.great {
   background: -webkit-linear-gradient(orange, orange, yellow, green, cyan, blue, violet, violet);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.good {
+  background: -webkit-linear-gradient(green, yellow, green);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
