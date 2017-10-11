@@ -238,6 +238,7 @@ Feedback
 }
 
 .missed {
+  text-align: center;
   background: -webkit-linear-gradient(white, grey, white);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -257,7 +258,24 @@ Combo
 }
 
 .combo-text {
-  background: -webkit-linear-gradient(white, grey, white);
+  background: -webkit-linear-gradient(gold, white, gold);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/*
+Countdown
+*/
+
+.countdown {
+  z-index: 4;
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 700;
+  position: absolute;
+  left: 200px;
+  top: 150px;
+  font-size: 130px;
+  background: -webkit-linear-gradient(orange, orange, yellow, green, cyan, blue, violet, violet);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

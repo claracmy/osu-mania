@@ -9,6 +9,8 @@ $(() => {
   const $score = $('.score');
   const $feedback = $('.feedback');
   const $combo = $('.combo');
+  const $countdown = $('.countdown');
+  const $button = $('.button');
 
   let $d;
   let $dLastNote;
@@ -41,12 +43,17 @@ $(() => {
   const hit = document.getElementById('hit');
   hit.src = 'hit.wav';
   hit.volume = 0.3;
+  const buttonHover = document.getElementById('button-hover');
+  buttonHover.src = 'hover.mp3';
   bgm.play();
 
   // Display instructions when instructions is clicked and held
 
   $instruction.on('mousedown', showInstructions);
   $instruction.on('mouseup', hideInstructions);
+  $button.mouseenter(function(){
+    buttonHover.play();
+  });
 
   function showInstructions(){
     $instructions.show();
@@ -77,6 +84,24 @@ $(() => {
 
   // Once start is pressed, count down 3 secs
   function countdown(){
+    $countdown.show();
+    timerStart();
+    function timerStart(){
+      let time = 3;
+      $countdown.html(`${time}`).addClass('animated zoomIn infinite');
+      const startTimer = setInterval(function(){
+        time -= 1;
+        $countdown.html(`${time}`);
+        checkTime();
+      }, 1000);
+
+      function checkTime(){
+        if (time <= 0) {
+          clearInterval(startTimer);
+          $countdown.hide();
+        }
+      }
+    }
     setTimeout(function(){
       music.play();
       gameStart();
@@ -87,11 +112,24 @@ $(() => {
 
   function gameStart(){
     registerNote();
-    setInterval(function(){
-      createNote();
-    }, 1000);
+    levelOne();
+    setTimeout(function(){
+      levelTwo();
+    },12960);
     keypressAnimation();
     gameEnd = false;
+  }
+
+  function levelOne(){
+    setInterval(function(){
+      createNote();
+    }, 1296);
+  }
+
+  function levelTwo(){
+    setTimeout(function(){
+      levelOne();
+    }, 648);
   }
 
   function createNote(){
@@ -140,7 +178,7 @@ $(() => {
           if (down['68'] === null){
             dPosition = parseInt($dLastNote.style.bottom, 10);
             console.log(dPosition);
-            if ((dPosition < 110 && dPosition > 95) || (dPosition < 70 && dPosition > 60)) {
+            if ((dPosition < 120 && dPosition > 95) || (dPosition < 70 && dPosition > 60)) {
               $dLastNote.remove();
               comboCounter += 1;
               down['68'] = true;
@@ -166,7 +204,7 @@ $(() => {
         case 70:
           if (down['70'] === null){
             fPosition = parseInt($fLastNote.style.bottom, 10);
-            if  ((fPosition < 110 && fPosition > 95) || (fPosition < 70 && fPosition > 60)) {
+            if  ((fPosition < 120 && fPosition > 95) || (fPosition < 70 && fPosition > 60)) {
               $fLastNote.remove();
               comboCounter += 1;
               down['70'] = true;
@@ -192,7 +230,7 @@ $(() => {
         case 74:
           if (down['74'] === null){
             jPosition = parseInt($jLastNote.style.bottom, 10);
-            if  ((jPosition < 110 && jPosition > 95) || (jPosition < 70 && jPosition > 60)) {
+            if  ((jPosition < 120 && jPosition > 95) || (jPosition < 70 && jPosition > 60)) {
               $jLastNote.remove();
               comboCounter += 1;
               down['74'] = true;
@@ -218,7 +256,7 @@ $(() => {
         case 75:
           if (down['75'] === null){
             kPosition = parseInt($kLastNote.style.bottom, 10);
-            if ((kPosition < 110 && kPosition > 95) || (kPosition < 70 && kPosition > 60)){
+            if ((kPosition < 120 && kPosition > 95) || (kPosition < 70 && kPosition > 60)){
               $kLastNote.remove();
               comboCounter += 1;
               down['75'] = true;
