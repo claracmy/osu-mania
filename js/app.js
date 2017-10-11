@@ -9,7 +9,7 @@ $(() => {
   const $score = $('.score');
   const $feedback = $('.feedback');
   const $combo = $('.combo');
-  const $countdown = $('.countdown');
+  const $display = $('.display');
   const $button = $('.button');
 
   let $d;
@@ -38,6 +38,7 @@ $(() => {
   // Music setup
   const bgm = document.getElementById('bgm');
   bgm.src = 'bgm.mp3';
+  bgm.volume = 0.8;
   const music = document.getElementById('music');
   music.src = 'music.mp3';
   const hit = document.getElementById('hit');
@@ -84,24 +85,8 @@ $(() => {
 
   // Once start is pressed, count down 3 secs
   function countdown(){
-    $countdown.show();
+    $display.show();
     timerStart();
-    function timerStart(){
-      let time = 3;
-      $countdown.html(`${time}`).addClass('animated zoomIn infinite');
-      const startTimer = setInterval(function(){
-        time -= 1;
-        $countdown.html(`${time}`);
-        checkTime();
-      }, 1000);
-
-      function checkTime(){
-        if (time <= 0) {
-          clearInterval(startTimer);
-          $countdown.hide();
-        }
-      }
-    }
     setTimeout(function(){
       music.play();
       gameStart();
@@ -116,6 +101,12 @@ $(() => {
     setTimeout(function(){
       levelTwo();
     },12960);
+    setTimeout(function(){
+      levelThree();
+    },34992);
+    setTimeout(function(){
+      levelFour();
+    },57996);
     keypressAnimation();
     gameEnd = false;
   }
@@ -130,6 +121,18 @@ $(() => {
     setTimeout(function(){
       levelOne();
     }, 648);
+  }
+
+  function levelThree(){
+    setTimeout(function(){
+      levelOne();
+    }, 324);
+  }
+
+  function levelFour(){
+    setTimeout(function(){
+      levelOne();
+    }, 162);
   }
 
   function createNote(){
@@ -400,6 +403,23 @@ $(() => {
       $('.hitbox-3').addClass('hit');
     } else if (down['75'] === true){
       $('.hitbox-4').addClass('hit');
+    }
+  }
+
+  function timerStart(){
+    let time = 3;
+    $display.html(`${time}`).addClass('animated zoomIn infinite');
+    const startTimer = setInterval(function(){
+      time -= 1;
+      $display.html(`${time}`);
+      checkTime();
+    }, 1000);
+
+    function checkTime(){
+      if (time <= 0) {
+        clearInterval(startTimer);
+        $display.hide();
+      }
     }
   }
 
