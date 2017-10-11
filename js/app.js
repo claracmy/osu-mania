@@ -105,7 +105,7 @@ $(() => {
     setTimeout(function(){
       music.play();
       gameStart();
-    }, 3000);
+    }, 3240);
   }
 
   // Display a note in a random column every 1 second
@@ -144,7 +144,7 @@ $(() => {
   function translateNote(note){
     note.animate({
       bottom: '-1px'
-    }, 4000, 'linear', function(){
+    }, 3240, 'linear', function(){
       const $unhit = $keyboard.find('.notes'); // When notes are hit, they are removed from DOM. Therefore this returns only unhit notes.
       for (let i = 0; i < $unhit.length; i++){
         if (parseInt($unhit[i].style.bottom) < 0) {  // If unhit notes are at -1px, they've been missed.
@@ -184,7 +184,7 @@ $(() => {
               down['68'] = true;
               hitAnimation();
               hit.play();
-              addScore();
+              addScoreGood();
               feedbackGood();
             } else if (dPosition <= 95 && dPosition >= 70) {
               $dLastNote.remove();
@@ -192,7 +192,7 @@ $(() => {
               down['68'] = true;
               hitAnimation();
               hit.play();
-              addScore();
+              addScoreGreat();
               feedbackGreat();
             } else {
               feedbackMissed();
@@ -210,7 +210,7 @@ $(() => {
               down['70'] = true;
               hitAnimation();
               hit.play();
-              addScore();
+              addScoreGood();
               feedbackGood();
             } else if (fPosition <= 95 && fPosition >= 70) {
               $fLastNote.remove();
@@ -218,7 +218,7 @@ $(() => {
               down['70'] = true;
               hitAnimation();
               hit.play();
-              addScore();
+              addScoreGreat();
               feedbackGreat();
             } else {
               feedbackMissed();
@@ -236,7 +236,7 @@ $(() => {
               down['74'] = true;
               hitAnimation();
               hit.play();
-              addScore();
+              addScoreGood();
               feedbackGood();
             } else if (jPosition <= 95 && jPosition >= 70) {
               $jLastNote.remove();
@@ -244,7 +244,7 @@ $(() => {
               down['74'] = true;
               hitAnimation();
               hit.play();
-              addScore();
+              addScoreGreat();
               feedbackGreat();
             } else {
               feedbackMissed();
@@ -262,7 +262,7 @@ $(() => {
               down['75'] = true;
               hitAnimation();
               hit.play();
-              addScore();
+              addScoreGood();
               feedbackGood();
             } else if (kPosition <= 95 && kPosition >= 70) {
               $kLastNote.remove();
@@ -270,7 +270,7 @@ $(() => {
               down['75'] = true;
               hitAnimation();
               hit.play();
-              addScore();
+              addScoreGreat();
               feedbackGreat();
             } else {
               feedbackMissed();
@@ -291,8 +291,13 @@ $(() => {
     });
   }
 
-  function addScore(){
+  function addScoreGreat(){
     scores += 300;
+    $score.html(`${scores}`);
+    return $score;
+  }
+  function addScoreGood(){
+    scores += 200;
     $score.html(`${scores}`);
     return $score;
   }
