@@ -11,6 +11,7 @@ $(() => {
   const $combo = $('.combo');
   const $display = $('.display');
   const $button = $('.button');
+  const $results = $('.results-board');
 
   let $d;
   let $dLastNote;
@@ -29,6 +30,9 @@ $(() => {
   let timer = 0;
   let noteInterval;
   let gameInterval;
+  let gameInterval2;
+  let gameInterval3;
+
 
   //Keeps track of keydown to ensure register of actual key presses not holds. Sets default to null.
   const down = {
@@ -78,6 +82,8 @@ $(() => {
   function endGame(){
     setTimeout(function(){
       music.pause();
+      $keyboard.hide();
+      $results.show();
     },177000);
   }
 
@@ -114,27 +120,46 @@ $(() => {
       }
 
       if (timer === 1296) {
-        clearInterval(gameInterval);
-        noteInterval = 648;
-        gameInterval = setInterval(function(){
-          createNote();
-        }, noteInterval);
+        // clearInterval(gameInterval);
+        // noteInterval = 648;
+        setTimeout(function(){
+          gameInterval = setInterval(function(){
+            createNote();
+          }, noteInterval);
+        }, 648);
       }
+
       if (timer === 3499) {
-        clearInterval(gameInterval);
-        noteInterval = 324;
-        gameInterval = setInterval(function(){
-          createNote();
-        }, noteInterval);
+        // clearInterval(gameInterval);
+        // noteInterval = 648;
+        // gameInterval = setInterval(function(){
+        //   createNote();
+        // }, noteInterval);
+        setTimeout(function(){
+          gameInterval2 = setInterval(function(){
+            createNote();
+          }, 1296);
+        }, 324);
       }
-      // if (timer === 5799) {
-      //   clearInterval(gameInterval);
-      //   noteInterval = 162;
-      //   gameInterval = setInterval(function(){
-      //     createNote();
-      //   }, noteInterval);
-      // }
-      if (timer === 17000) {
+      if (timer === 5799) {
+        // clearInterval(gameInterval);
+        // clearInterval(gameInterval2);
+        // noteInterval = 648;
+        // gameInterval = setInterval(function(){
+        //   createNote();
+        // }, noteInterval);
+        // setTimeout(function(){
+        //   gameInterval2 = setInterval(function(){
+        //     createNote();
+        //   }, 1296);
+        // }, 324);
+        setTimeout(function(){
+          gameInterval3 = setInterval(function(){
+            createNote();
+          }, 1296);
+        }, 162);
+      }
+      if (timer === 170000) {
         clearInterval(gameInterval);
         clearInterval(noteInterval);
       }
@@ -406,16 +431,15 @@ $(() => {
   }
 
   function hitAnimation(){
-    if (down['68'] === true){
-      $('.hitbox-1').addClass('hit');
-    } else if (down['70'] === true){
-      $('.hitbox-2').addClass('hit');
-    } else if (down['74'] === true){
-      $('.hitbox-3').addClass('hit');
-    } else if (down['75'] === true){
-      $('.hitbox-4').addClass('hit');
+    const $keymap = {68: $('.hitbox-1'), 70: $('.hitbox-2'), 74: $('.hitbox-3'), 75: $('.hitbox-4')};
+    const $keys = Object.keys($keymap);
+    for (let i = 0; i < 4; i++) {
+      if (down[$keys[i]] === true){
+        $keymap[$keys[i]].addClass('hit');
+      }
     }
   }
+
 
   function timerStart(){
     let time = 3;
