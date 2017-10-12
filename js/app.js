@@ -12,7 +12,10 @@ $(() => {
   const $display = $('.display');
   const $button = $('.button');
   const $results = $('.results-page');
-  let $grade = $('.score-grade');
+  const $grade = $('.score-grade');
+  const $back = $('#back');
+  const $highscores = $('.highscores');
+  const $name = $('.name');
 
   let $d;
   let $dLastNote;
@@ -38,6 +41,7 @@ $(() => {
   let scoreGood = 0;
   let scoreMissed = 0;
   let grade;
+  let name;
   // const totalScore = 68400;
   const totalScore = 3000;
 
@@ -63,7 +67,7 @@ $(() => {
   buttonHover.src = 'hover.mp3';
   bgm.play();
 
-  // Display instructions when instructions is clicked and held
+  // Display instructions when instructions button is clicked and held
 
   $instruction.on('mousedown', showInstructions);
   $instruction.on('mouseup', hideInstructions);
@@ -78,14 +82,24 @@ $(() => {
     $instructions.hide();
   }
 
+  // Display highscores when highscores button is click and held
+
+
   // Hide welcome screen and buttons once player has chosen game mode
   $oneplayer.on('click', function(){
     showKeyboard();
     $score.html(`${scores}`);
     bgm.pause();
-    hideWelcome();
+    $welcome.hide();
     countdown();
     endGame();
+  });
+
+  $back.on('click', function(){
+    createPlayer();
+    newHighscore();
+    $welcome.show();
+    $results.hide();
   });
 
   function endGame(){
@@ -99,12 +113,6 @@ $(() => {
     },20000);
   }
 
-
-  function hideWelcome(){
-    $welcome.hide();
-  }
-
-  // Display Keyboard and score.
   function showKeyboard(){
     $keyboard.show();
     $gameboard.show();
@@ -120,7 +128,7 @@ $(() => {
     }, 3240);
   }
 
-  function gameRhythm(){
+  function gameRhythm(){    //Decides how often to spawn notes and ends game after 2:56 mins
     setInterval(function(){
       timer++;
       if (timer === 1) {
@@ -332,7 +340,6 @@ $(() => {
     scores += 300;
     $score.html(`${scores}`);
     scoreGreat += 1;
-    console.log(scoreGreat);
     return $score;
   }
   function addScoreGood(){
@@ -502,6 +509,20 @@ $(() => {
   }
   function displayGrade(){
     $grade.html(`${grade}`);
+  }
+
+  function createPlayer(){
+    name = $name.val();
+    console.log(name);
+  }
+
+  function newHighscore(){
+    function highscore(name, scores){
+      this.name = name;
+      this.score = scores;
+    }
+    const newRecord = new highscore(name, scores);
+    
   }
 
 });
