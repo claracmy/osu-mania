@@ -31,6 +31,13 @@ Layout
   float:right;
 }
 
+.results-board {
+  width:100%;
+  height: 750px;
+  margin: 0 auto;
+  background-color: #ed61a9;
+}
+
 /*
 Typography
 */
@@ -75,6 +82,11 @@ footer p {
   font-size: 18px;
   padding: 2px;
   line-height: 25px;
+}
+
+.results {
+  font-size: 100px;
+  font-family: 'Ubuntu', sans-serif;
 }
 
 /*
@@ -279,6 +291,12 @@ Countdown
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+/*
+Results
+*/
+
+
 
 /*
 Footer

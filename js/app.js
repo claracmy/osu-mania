@@ -26,7 +26,9 @@ $(() => {
   let kPosition;
   let scores = 0;
   let comboCounter = 0;
-  let gameEnd = true;
+  let timer = 0;
+  let noteInterval;
+  let gameInterval;
 
   //Keeps track of keydown to ensure register of actual key presses not holds. Sets default to null.
   const down = {
@@ -70,12 +72,19 @@ $(() => {
     bgm.pause();
     hideWelcome();
     countdown();
+    endGame();
   });
+
+  function endGame(){
+    setTimeout(function(){
+      music.pause();
+    },177000);
+  }
+
 
   function hideWelcome(){
     $welcome.hide();
   }
-
 
   // Display Keyboard and score.
   function showKeyboard(){
@@ -93,46 +102,49 @@ $(() => {
     }, 3240);
   }
 
-  // Display a note in a random column every 1 second
+  function gameTimer(){
+    setInterval(function(){
+      timer++;
+      if (timer === 1) {
+        clearInterval(gameInterval);
+        noteInterval = 1296;
+        gameInterval = setInterval(function(){
+          createNote();
+        }, noteInterval);
+      }
+
+      if (timer === 1296) {
+        clearInterval(gameInterval);
+        noteInterval = 648;
+        gameInterval = setInterval(function(){
+          createNote();
+        }, noteInterval);
+      }
+      if (timer === 3499) {
+        clearInterval(gameInterval);
+        noteInterval = 324;
+        gameInterval = setInterval(function(){
+          createNote();
+        }, noteInterval);
+      }
+      // if (timer === 5799) {
+      //   clearInterval(gameInterval);
+      //   noteInterval = 162;
+      //   gameInterval = setInterval(function(){
+      //     createNote();
+      //   }, noteInterval);
+      // }
+      if (timer === 17000) {
+        clearInterval(gameInterval);
+        clearInterval(noteInterval);
+      }
+    },10);
+  }
 
   function gameStart(){
     registerNote();
-    levelOne();
-    setTimeout(function(){
-      levelTwo();
-    },12960);
-    setTimeout(function(){
-      levelThree();
-    },34992);
-    setTimeout(function(){
-      levelFour();
-    },57996);
+    gameTimer();
     keypressAnimation();
-    gameEnd = false;
-  }
-
-  function levelOne(){
-    setInterval(function(){
-      createNote();
-    }, 1296);
-  }
-
-  function levelTwo(){
-    setTimeout(function(){
-      levelOne();
-    }, 648);
-  }
-
-  function levelThree(){
-    setTimeout(function(){
-      levelOne();
-    }, 324);
-  }
-
-  function levelFour(){
-    setTimeout(function(){
-      levelOne();
-    }, 162);
   }
 
   function createNote(){
@@ -180,7 +192,6 @@ $(() => {
         case 68:
           if (down['68'] === null){
             dPosition = parseInt($dLastNote.style.bottom, 10);
-            console.log(dPosition);
             if ((dPosition < 120 && dPosition > 95) || (dPosition < 70 && dPosition > 60)) {
               $dLastNote.remove();
               comboCounter += 1;
