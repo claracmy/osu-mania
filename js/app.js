@@ -11,7 +11,8 @@ $(() => {
   const $combo = $('.combo');
   const $display = $('.display');
   const $button = $('.button');
-  const $results = $('.results-board');
+  const $results = $('.results-page');
+  let $grade = $('.score-grade');
 
   let $d;
   let $dLastNote;
@@ -32,6 +33,14 @@ $(() => {
   let gameInterval;
   let gameInterval2;
   let gameInterval3;
+  let gameInterval4;
+  let scoreGreat = 0;
+  let scoreGood = 0;
+  let scoreMissed = 0;
+  let grade;
+  // const totalScore = 68400;
+  const totalScore = 3000;
+
 
 
   //Keeps track of keydown to ensure register of actual key presses not holds. Sets default to null.
@@ -82,9 +91,12 @@ $(() => {
   function endGame(){
     setTimeout(function(){
       music.pause();
-      $keyboard.hide();
+      $gameboard.hide();
+      displayResult();
       $results.show();
-    },177000);
+      calculateGrade();
+      displayGrade();
+    },20000);
   }
 
 
@@ -108,7 +120,7 @@ $(() => {
     }, 3240);
   }
 
-  function gameTimer(){
+  function gameRhythm(){
     setInterval(function(){
       timer++;
       if (timer === 1) {
@@ -120,47 +132,32 @@ $(() => {
       }
 
       if (timer === 1296) {
-        // clearInterval(gameInterval);
-        // noteInterval = 648;
         setTimeout(function(){
-          gameInterval = setInterval(function(){
+          gameInterval2 = setInterval(function(){
             createNote();
           }, noteInterval);
         }, 648);
       }
 
       if (timer === 3499) {
-        // clearInterval(gameInterval);
-        // noteInterval = 648;
-        // gameInterval = setInterval(function(){
-        //   createNote();
-        // }, noteInterval);
-        setTimeout(function(){
-          gameInterval2 = setInterval(function(){
-            createNote();
-          }, 1296);
-        }, 324);
-      }
-      if (timer === 5799) {
-        // clearInterval(gameInterval);
-        // clearInterval(gameInterval2);
-        // noteInterval = 648;
-        // gameInterval = setInterval(function(){
-        //   createNote();
-        // }, noteInterval);
-        // setTimeout(function(){
-        //   gameInterval2 = setInterval(function(){
-        //     createNote();
-        //   }, 1296);
-        // }, 324);
         setTimeout(function(){
           gameInterval3 = setInterval(function(){
             createNote();
-          }, 1296);
+          }, noteInterval);
+        }, 324);
+      }
+      if (timer === 5800) {
+        setTimeout(function(){
+          gameInterval4 = setInterval(function(){
+            createNote();
+          }, noteInterval);
         }, 162);
       }
-      if (timer === 170000) {
+      if (timer === 20000) {
         clearInterval(gameInterval);
+        clearInterval(gameInterval2);
+        clearInterval(gameInterval3);
+        clearInterval(gameInterval4);
         clearInterval(noteInterval);
       }
     },10);
@@ -168,7 +165,7 @@ $(() => {
 
   function gameStart(){
     registerNote();
-    gameTimer();
+    gameRhythm();
     keypressAnimation();
   }
 
@@ -191,6 +188,7 @@ $(() => {
           note.remove();
           feedbackMissed();
           deductScore();
+          scoreMissed += 1;
           comboCounter = 0;
         }
       }
@@ -333,11 +331,14 @@ $(() => {
   function addScoreGreat(){
     scores += 300;
     $score.html(`${scores}`);
+    scoreGreat += 1;
+    console.log(scoreGreat);
     return $score;
   }
   function addScoreGood(){
     scores += 200;
     $score.html(`${scores}`);
+    scoreGood += 1;
     return $score;
   }
 
@@ -440,7 +441,6 @@ $(() => {
     }
   }
 
-
   function timerStart(){
     let time = 3;
     $display.html(`${time}`).addClass('animated zoomIn infinite');
@@ -456,6 +456,52 @@ $(() => {
         $display.hide();
       }
     }
+  }
+
+  function displayResult(){
+    const $scoreGreat = $('.score-great');
+    const $scoreGood = $('.score-good');
+    const $scoreMissed = $('.score-missed');
+    const $scoreOverall = $('.score-overall');
+
+    $scoreGreat.html(` ${scoreGreat}x`);
+    $scoreGood.html(` ${scoreGood}x`);
+    $scoreMissed.html(` ${scoreMissed}x`);
+    $scoreOverall.html(` ${scores}`);
+  }
+
+  function calculateGrade(){
+    if ( scores/totalScore >= 0.9 ){
+      grade = 'S';
+      $grade.css({'background': '-webkit-linear-gradient(gold, white, gold)',
+        '-webkit-background-clip': 'text',
+        '-webkit-text-fill-color': 'transparent', '-webkit-text-stroke': '2px white'});
+    } else if (scores/totalScore >= 0.8){
+      grade = 'A';
+      $grade.css({'background': '-webkit-linear-gradient(green, yellow, green)',
+        '-webkit-background-clip': 'text',
+        '-webkit-text-fill-color': 'transparent', '-webkit-text-stroke': '2px white'});
+    } else if (scores/totalScore >=0.7){
+      grade = 'B';
+      $grade.css({'background': '-webkit-linear-gradient(blue, #000080)',
+        '-webkit-background-clip': 'text',
+        '-webkit-text-fill-color': 'transparent', '-webkit-text-stroke': '2px white'});
+    } else if (scores/totalScore >=0.7) {
+      grade = 'C';
+      $grade.css({'color': 'purple', '-webkit-text-stroke': '2px white'});
+    } else if (scores/totalScore >=0.6) {
+      grade = 'D';
+      $grade.css({'color': 'red', '-webkit-text-stroke': '2px white'});
+    } else if (scores/totalScore >=0.5) {
+      grade = 'E';
+      $grade.css({'color': 'red', '-webkit-text-stroke': '2px white'});
+    } else {
+      grade = 'Failed';
+      $grade.css({'color': 'red', '-webkit-text-stroke': '2px white'});
+    }
+  }
+  function displayGrade(){
+    $grade.html(`${grade}`);
   }
 
 });
