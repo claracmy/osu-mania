@@ -97,6 +97,26 @@ footer p {
   color: white;
 }
 
+.highscore-title {
+  font-size: 58px;
+  color: gold;
+  line-height: 96px;
+}
+
+.highscore {
+  color: gold;
+  font-size: 30px;
+  text-align: center;
+}
+
+.records{
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 25px;
+  color: white;
+  line-height: 40px;
+  text-align: center;
+}
+
 
 /*
 Instructions
@@ -364,7 +384,19 @@ input[type="text"] {
 }
 
 .highscores{
+  background-color: rgba(0,0,0,0.2);
+  border-radius: 10px;
+  padding: 20px;
+  position: absolute;
+  margin-left: 5%;
+}
 
+.highscores-board{
+  float:right;
+  background-color: rgba(245,150,216,0.2);
+  border-radius: 55px;
+  margin: 50px;
+  padding: 30px 60px 20px;
 }
 
 

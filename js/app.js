@@ -1,5 +1,5 @@
 $(() => {
-  // Setup
+
   const $instruction = $('#instructions');
   const $instructions = $('.instructions');
   const $oneplayer = $('#one-player');
@@ -14,7 +14,9 @@ $(() => {
   const $results = $('.results-page');
   const $grade = $('.score-grade');
   const $back = $('#back');
+  const $highscoreButton = $('#highscores');
   const $highscores = $('.highscores');
+  const $records = $('.records');
   const $name = $('.name');
 
   let $d;
@@ -42,8 +44,7 @@ $(() => {
   let scoreMissed = 0;
   let grade;
   let name;
-  // const totalScore = 68400;
-  const totalScore = 3000;
+  const totalScore = 99200;
 
 
 
@@ -65,6 +66,8 @@ $(() => {
   hit.volume = 0.3;
   const buttonHover = document.getElementById('button-hover');
   buttonHover.src = 'hover.mp3';
+  const buttonClick= document.getElementById('button-click');
+  buttonClick.src = 'click.wav';
   bgm.play();
 
   // Display instructions when instructions button is clicked and held
@@ -73,6 +76,10 @@ $(() => {
   $instruction.on('mouseup', hideInstructions);
   $button.mouseenter(function(){
     buttonHover.play();
+  });
+
+  $button.click(function(){
+    buttonClick.play();
   });
 
   function showInstructions(){
@@ -84,12 +91,24 @@ $(() => {
 
   // Display highscores when highscores button is click and held
 
+  $highscoreButton.on('mousedown', function(){
+    $highscores.show();
+  });
+
+  $highscoreButton.on('mouseup', function(){
+    $highscores.hide();
+  });
+
+  $highscoreButton.one('click', function(){
+    updateHighscore();
+  });
 
   // Hide welcome screen and buttons once player has chosen game mode
   $oneplayer.on('click', function(){
     showKeyboard();
-    $score.html(`${scores}`);
+    $score.html(` ${scores}`);
     bgm.pause();
+    bgm.currentTime = 0;
     $welcome.hide();
     countdown();
     endGame();
@@ -98,8 +117,10 @@ $(() => {
   $back.on('click', function(){
     createPlayer();
     newHighscore();
+    updateHighscore();
     $welcome.show();
     $results.hide();
+    bgm.play();
   });
 
   function endGame(){
@@ -110,7 +131,8 @@ $(() => {
       $results.show();
       calculateGrade();
       displayGrade();
-    },20000);
+      updateHighscore();
+    },177000);
   }
 
   function showKeyboard(){
@@ -154,18 +176,30 @@ $(() => {
           }, noteInterval);
         }, 324);
       }
-      if (timer === 5800) {
+      if (timer === 5799) {
         setTimeout(function(){
           gameInterval4 = setInterval(function(){
             createNote();
           }, noteInterval);
         }, 162);
       }
-      if (timer === 20000) {
+
+      if (timer === 8600) {
+        clearInterval(gameInterval4);
+      }
+
+      if (timer === 13200){
         clearInterval(gameInterval);
         clearInterval(gameInterval2);
         clearInterval(gameInterval3);
-        clearInterval(gameInterval4);
+        clearInterval(noteInterval);
+        noteInterval = 162;
+        gameInterval = setInterval(function(){
+          createNote();
+        }, noteInterval);
+      }
+      if (timer === 174000) {
+        clearInterval(gameInterval);
         clearInterval(noteInterval);
       }
     },10);
@@ -507,22 +541,30 @@ $(() => {
       $grade.css({'color': 'red', '-webkit-text-stroke': '2px white'});
     }
   }
+
   function displayGrade(){
     $grade.html(`${grade}`);
   }
 
   function createPlayer(){
     name = $name.val();
-    console.log(name);
   }
 
   function newHighscore(){
     function highscore(name, scores){
       this.name = name;
-      this.score = scores;
+      this.scores = scores;
     }
     const newRecord = new highscore(name, scores);
-    
+    localStorage.setItem(newRecord.name, JSON.stringify(newRecord.scores));
   }
 
+  function updateHighscore(){
+    for (let i = 0; i < localStorage.length; i++){
+      const key = localStorage.key(i);
+      const value = localStorage.getItem(key);
+      $records.append(`${key} : ${value}` + '<br>');
+    }
+    return $records;
+  }
 });
