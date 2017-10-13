@@ -39,9 +39,7 @@ $(() => {
   let scoreMissed = 0;
   let grade;
   let name;
-  const totalScore = 110100;
-
-
+  const totalScore = 104400;
 
   //Keeps track of keydown to ensure register of actual key presses not holds. Sets default to null.
   const down = {
@@ -50,6 +48,7 @@ $(() => {
     74: null,
     75: null
   };
+
   // Music setup
   const bgm = document.getElementById('bgm');
   bgm.src = 'bgm.mp3';
@@ -125,6 +124,7 @@ $(() => {
       calculateGrade();
       displayGrade();
       updateHighscore();
+      resetScores();
     },177000);
   }
 
@@ -144,6 +144,7 @@ $(() => {
     let gameInterval2;
     let gameInterval3;
     let gameInterval4;
+
     setInterval(function(){
       timer++;
       if (timer === 1) {
@@ -558,6 +559,15 @@ $(() => {
       const value = localStorage.getItem(key);
       $records.append(`${key} : ${value}` + '<br>');
     }
-    return $records;
+  }
+
+
+  function resetScores() {
+    scores = 0;
+    timer = 0;
+    comboCounter = 0;
+    scoreGreat = 0;
+    scoreGood = 0;
+    scoreMissed = 0;
   }
 });

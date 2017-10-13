@@ -109,14 +109,14 @@ footer p {
 }
 
 .highscore-title {
-  font-size: 58px;
+  font-size: 40px;
   color: gold;
-  line-height: 96px;
+  line-height: 60px;
 }
 
 .highscore {
   color: gold;
-  font-size: 30px;
+  font-size: 20px;
   text-align: center;
 }
 
@@ -420,6 +420,7 @@ input[type="text"] {
   background-color: rgba(245,150,216,0.2);
   border-radius: 55px;
   margin: 50px;
+  height:320px;
   padding: 30px 60px 20px;
 }
 
