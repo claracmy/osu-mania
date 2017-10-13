@@ -34,11 +34,6 @@ $(() => {
   let scores = 0;
   let comboCounter = 0;
   let timer = 0;
-  let noteInterval;
-  let gameInterval;
-  let gameInterval2;
-  let gameInterval3;
-  let gameInterval4;
   let scoreGreat = 0;
   let scoreGood = 0;
   let scoreMissed = 0;
@@ -77,17 +72,9 @@ $(() => {
   $button.mouseenter(function(){
     buttonHover.play();
   });
-
   $button.click(function(){
     buttonClick.play();
   });
-
-  function showInstructions(){
-    $instructions.show();
-  }
-  function hideInstructions(){
-    $instructions.hide();
-  }
 
   // Display highscores when highscores button is click and held
 
@@ -98,7 +85,6 @@ $(() => {
   $highscoreButton.on('mouseup', function(){
     $highscores.hide();
   });
-
 
   // Hide welcome screen and buttons once player has chosen game mode
   $oneplayer.on('click', function(){
@@ -120,6 +106,16 @@ $(() => {
     bgm.play();
   });
 
+  function showInstructions(){
+    $instructions.show();
+  }
+  function hideInstructions(){
+    $instructions.hide();
+  }
+  function showKeyboard(){
+    $keyboard.show();
+    $gameboard.show();
+  }
   function endGame(){
     setTimeout(function(){
       music.pause();
@@ -130,11 +126,6 @@ $(() => {
       displayGrade();
       updateHighscore();
     },177000);
-  }
-
-  function showKeyboard(){
-    $keyboard.show();
-    $gameboard.show();
   }
 
   // Once start is pressed, count down 3 secs
@@ -148,6 +139,11 @@ $(() => {
   }
 
   function gameRhythm(){    //Decides how often to spawn notes and ends game after 2:56 mins
+    let noteInterval;
+    let gameInterval;
+    let gameInterval2;
+    let gameInterval3;
+    let gameInterval4;
     setInterval(function(){
       timer++;
       if (timer === 1) {
