@@ -198,7 +198,7 @@ $(() => {
           createNote();
         }, noteInterval);
       }
-      if (timer === 174000) {
+      if (timer === 17400) {
         clearInterval(gameInterval);
         clearInterval(noteInterval);
       }
