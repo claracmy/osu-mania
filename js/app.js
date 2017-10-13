@@ -44,7 +44,7 @@ $(() => {
   let scoreMissed = 0;
   let grade;
   let name;
-  const totalScore = 99200;
+  const totalScore = 110100;
 
 
 
@@ -99,9 +99,6 @@ $(() => {
     $highscores.hide();
   });
 
-  $highscoreButton.one('click', function(){
-    updateHighscore();
-  });
 
   // Hide welcome screen and buttons once player has chosen game mode
   $oneplayer.on('click', function(){
@@ -198,7 +195,7 @@ $(() => {
           createNote();
         }, noteInterval);
       }
-      if (timer === 17400) {
+      if (timer === 17000) {
         clearInterval(gameInterval);
         clearInterval(noteInterval);
       }
