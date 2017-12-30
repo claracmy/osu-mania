@@ -561,7 +561,6 @@ $(() => {
     }
   }
 
-
   function resetScores() {
     scores = 0;
     timer = 0;
