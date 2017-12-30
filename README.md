@@ -1,4 +1,4 @@
-# Osu Mania! - A Javascript Rhythm Game 
+# Osu Mania! - A Javascript Rhythm Game
 ## Stack
 - HTML5
 - CSS3
@@ -22,7 +22,7 @@ A mock of the popular rhythm game ‘Osu Mania’. Notes fall from the top of th
 
 ## Challenges/Learning Points
 
-- Targetting the note closest to the target and removing it not only from the DOM, but from the script.
+- Targetting the note closest to the target and removing it not only from the DOM, but also from the script.
 - Introducing and removing note intervals.
 
 ## Screenshots
